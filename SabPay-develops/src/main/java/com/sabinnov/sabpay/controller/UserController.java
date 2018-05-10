@@ -4,6 +4,9 @@ package com.sabinnov.sabpay.controller;
 import com.sabinnov.sabpay.models.User;
 import com.sabinnov.sabpay.repository.UserRepository;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,21 +27,37 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Controller
 @RequestMapping("/sab")
 public class UserController {
+	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	private UserRepository userRepository;
 
 
 	@RequestMapping(value = "/api/registration/", method = RequestMethod.POST)
-    public ResponseEntity< ?> persistPerson(@RequestBody User user,  UriComponentsBuilder ucBuilder) {
-		System.out.println("Create user : {} "+ user.toString());
-
+	public ResponseEntity< ?> addNewUser(@RequestBody User user,  UriComponentsBuilder ucBuilder) {
+		//Nous loggons la requete
+		LOGGER.info("Creating User : {}", user);
+		//Nous verifions s'il existe
+		if (isUserExist(user)){
+			// ici avant de personaliser nos execption
+			return new ResponseEntity(new IllegalAccessError("Unable to create. A User with email " +
+					user.getEmail() + " already exist."),HttpStatus.CONFLICT);
+		}
 		//ici tu va verifier si le user est deja dans la BD
 		// si il existe tu renvoi existe sinon tu le cree
-		userRepository.save(user);
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/api/user/{id}").buildAndExpand(user.getId()).toUri());
-		return new ResponseEntity<String>(headers, HttpStatus.CREATED);
-    }
+		//nous catchons au cas ou BD nest pas accessible
+		try {
+			userRepository.save(user);
+		}catch (Exception e ){
+			LOGGER.error("Internal error : " + e.getMessage(), e);
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		//Nous retournon le HTTP status correspondant
+		return new ResponseEntity<String>(HttpStatus.CREATED);
+	}
 
+	private boolean isUserExist(User user) {
+		return userRepository.findByEmail(user.getEmail())!= null;
+	}
 }
