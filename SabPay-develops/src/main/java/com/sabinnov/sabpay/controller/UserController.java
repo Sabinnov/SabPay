@@ -3,12 +3,18 @@ package com.sabinnov.sabpay.controller;
 
 import com.sabinnov.sabpay.models.User;
 import com.sabinnov.sabpay.repository.UserRepository;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -40,5 +46,21 @@ public class UserController {
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
 		return userRepository.findAll();
+	}
+        
+        @Autowired
+         private BCryptPasswordEncoder bCryptPasswordEncoder;
+        @RequestMapping(value = "/registration", method = RequestMethod.POST)
+	public ModelAndView createNewUser(@Valid @RequestBody User user) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+			//user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        
+                        userRepository.save(user);
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName("registration");		
+		
+                        return modelAndView;
 	}
 }
