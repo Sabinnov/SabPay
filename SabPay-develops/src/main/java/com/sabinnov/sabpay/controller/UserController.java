@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 
 @Controller
-
+@RequestMapping("/sab")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
