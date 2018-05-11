@@ -14,7 +14,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.rcibanque.ckm.controllers"})
+@ComponentScan(basePackages = {"com.sabinnov.sabpay.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     ServletRegistrationBean h2servletRegistration(){
