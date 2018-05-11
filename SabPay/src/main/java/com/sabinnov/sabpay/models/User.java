@@ -1,18 +1,23 @@
 package com.sabinnov.sabpay.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    //exepmle de property qui sera controller par swagger avant validation de la requete
+    @ApiModelProperty(notes = "The database generated user ID")
     private Integer id;
-    
+
+    @Column(length = 255, nullable = false, columnDefinition = "ROLE_USER")
+    @ApiModelProperty(notes = "The email of user", required = false)
     private String active;
 
+    @ApiModelProperty(notes = "The email of user", required = true)
     private String email;
     
     private String lastname;
