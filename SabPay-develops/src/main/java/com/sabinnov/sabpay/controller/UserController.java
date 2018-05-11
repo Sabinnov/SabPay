@@ -34,6 +34,7 @@ public class UserController {
 
     private UserService userService;
 
+    @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
@@ -46,11 +47,11 @@ public class UserController {
         //Nous loggons la requete
         LOGGER.info("Creating User : {}", user);
         //Nous verifions s'il existe
-        /*if (userService.isUserExist(user)){
+        if (userService.isUserExist(user)){
             // ici avant de personaliser nos execption
             return new ResponseEntity(new IllegalAccessError("Unable to create. A User with email " +
                     user.getEmail() + " already exist."),HttpStatus.CONFLICT);
-        }*/
+        }
         //ici tu va verifier si le user est deja dans la BD
         // si il existe tu renvoi existe sinon tu le cree
 
