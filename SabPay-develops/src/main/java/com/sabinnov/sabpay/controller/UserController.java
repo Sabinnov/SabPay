@@ -3,6 +3,9 @@ package com.sabinnov.sabpay.controller;
 
 import com.sabinnov.sabpay.models.User;
 import com.sabinnov.sabpay.repository.UserRepository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 import com.sabinnov.sabpay.service.UserService;
@@ -29,9 +32,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UserController {
 	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-
-    @Autowired
     private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @ApiOperation(value = "Create user",response = User.class)
     @RequestMapping(value = "/api/registration/",method = RequestMethod.POST, produces = "application/json")

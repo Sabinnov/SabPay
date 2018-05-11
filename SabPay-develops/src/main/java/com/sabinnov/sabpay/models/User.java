@@ -12,7 +12,9 @@ public class User {
     //exepmle de property qui sera controller par swagger avant validation de la requete
     @ApiModelProperty(notes = "The database generated user ID")
     private Integer id;
-    
+
+    @Column(length = 255, nullable = false, columnDefinition = "ROLE_USER")
+    @ApiModelProperty(notes = "The email of user", required = false)
     private String active;
 
     @ApiModelProperty(notes = "The email of user", required = true)
