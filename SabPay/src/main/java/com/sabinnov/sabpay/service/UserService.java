@@ -18,19 +18,40 @@ public class UserService {
         return userRepository.save(user);
     }
 
-   
-
     public void removeUser( Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("User not existing in DB"));
         userRepository.delete(user);
     }
 
     public User findByEmail(String email){
-        return userRepository.findByEmail(email)
-                .orElseThrow(()-> new IllegalArgumentException("This email ["+email+" ] not exist in DB"));
+        return userRepository.findByEmail(email);
     }
     public boolean isUserExist(User user) {
-        return userRepository.findByEmail(user.getEmail())!= null;
+        return findByEmail(user.getEmail())!= null;
     }
+    
+    
+    /* public int isUserLogin(User user) {
+        //return userRepository.isUserVerify(user.getEmail(),user.getPassword())!= null;
+         return VerificationLogin(user.getEmail(), user.getPassword());
+     }*/
+     public int VerificationLogin(String email, String password){
+         return userRepository.isUserVerify(email,password);
+     }
+     
+     
+     
+    
+   /*  public int Connecter(User user){
+        
+        // userRepository.Connecter(user.getEmail()); 
+         return Activer(user.getEmail());
+    }*/
+      
+     public int Activer(String email){
+         
+         return userRepository.Connecter(email);
+     }
+   
 
 }

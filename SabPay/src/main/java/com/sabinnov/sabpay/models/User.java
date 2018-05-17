@@ -1,30 +1,39 @@
 package com.sabinnov.sabpay.models;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy=GenerationType.AUTO)
-    //exepmle de property qui sera controller par swagger avant validation de la requete
-    @ApiModelProperty(notes = "The database generated user ID")
+    @ApiModelProperty(hidden = true, readOnly = true)
     private Integer id;
 
     @Column(length = 255, nullable = false, columnDefinition = "ROLE_USER")
-    @ApiModelProperty(notes = "The email of user", required = false)
-    private String active;
+    @ApiModelProperty(hidden = true, readOnly = true)
+    private Integer active;
 
-    @ApiModelProperty(notes = "The email of user", required = true)
+    @Column(name = "email")
+    @ApiModelProperty(notes = "User email", required = true, dataType = "email")
     private String email;
-    
+
+    @Column(name = "lastname")
+    @ApiModelProperty(notes = "User last name", required = true)
     private String lastname;
-    
+
+    @Column(name = "name")
+    @ApiModelProperty(notes = "User last name", required = true)
     private String name;
-    
+
+    @Column(name = "password")
+    @ApiModelProperty(notes = "User last password", required = true, dataType = "password")
     private String password;
+    
 
 	public Integer getId() {
 		return id;
@@ -50,13 +59,13 @@ public class User {
 		this.email = email;
 	}
 
-    
-        public String getActive() {
+
+        public Integer getActive() {
             return active;
         }
 
 
-        public void setActive(String active) {
+        public void setActive(Integer active) {
             this.active = active;
         }
 
@@ -79,5 +88,15 @@ public class User {
             this.password = password;
         }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", active='" + active + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

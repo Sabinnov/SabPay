@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `role`
 --
-
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
   `role` varchar(255) NOT NULL
@@ -36,22 +36,26 @@ CREATE TABLE `role` (
 --
 -- Table structure for table `user`
 --
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
-  `active` varchar(255) DEFAULT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `active` int(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `passwordvarchar` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `first_name` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user_role`
 --
-
+DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
