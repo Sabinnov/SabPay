@@ -35,7 +35,7 @@ public class UserService {
         //return userRepository.isUserVerify(user.getEmail(),user.getPassword())!= null;
          return VerificationLogin(user.getEmail(), user.getPassword());
      }*/
-     public int VerificationLogin(String email, String password){
+     public int checkLogin(String email, String password){
          return userRepository.isUserVerify(email,password);
      }
      

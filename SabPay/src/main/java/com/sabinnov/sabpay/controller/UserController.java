@@ -67,7 +67,7 @@ public class UserController {
 
     public ResponseEntity< ?> login(@RequestParam(value = "email", required = true) String email, @RequestParam(value = "password", required = true) String password) {
          HashMap<String, String> map = new HashMap<>();
-        if (userService.VerificationLogin(email,password) == 0){
+        if (userService.checkLogin(email,password) == 0){
             return new ResponseEntity(new IllegalAccessError("Unable to login. A User with email " +
                     email + " is not exist."),HttpStatus.CONFLICT);
         }else{
