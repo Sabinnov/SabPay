@@ -12,18 +12,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    @Query("select u from User u where u.email = :email")
-    User findByEmail(@Param("email")  String email);
+    @Query("select COUNT(u) from User u where u.telephone = :telephone")
+    int findByTelephone(@Param("telephone")  String telephone);
     
      //----------------Mise a jour active pour indiquer aue l'utilisateur est connecte-----
   
     @Modifying
     @Transactional
-    @Query("update User u SET u.active = 1 WHERE u.email =:email")
-    int Connecter(@Param("email")  String email);
+    @Query("update User u SET u.active = 1 WHERE u.telephone =:telephone")
+    int Connecter(@Param("telephone")  String telephone);
     
      //----------------Verifivcation de l'identiter de l'utilisateur-----
-     @Query("select COUNT(u) from User u where u.email = :email and u.password = :password")
-    int isUserVerify(@Param("email")  String email,@Param("password")  String password);
+     @Query("select COUNT(u) from User u where u.telephone = :telephone and u.password = :password")
+    int isUserVerify(@Param("telephone")  String telephone,@Param("password")  String password);
 
 }

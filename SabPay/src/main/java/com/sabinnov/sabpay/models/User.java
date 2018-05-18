@@ -2,8 +2,11 @@ package com.sabinnov.sabpay.models;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "user")
@@ -18,9 +21,9 @@ public class User implements Serializable {
     @ApiModelProperty(hidden = true, readOnly = true)
     private Integer active;
 
-    @Column(name = "email")
-    @ApiModelProperty(notes = "User email", required = true, dataType = "email")
-    private String email;
+    @Column(name = "telephone")
+    @ApiModelProperty(notes = "User telephone", required = true)
+    private String telephone;
 
     @Column(name = "lastname")
     @ApiModelProperty(notes = "User last name", required = true)
@@ -33,6 +36,16 @@ public class User implements Serializable {
     @Column(name = "password")
     @ApiModelProperty(notes = "User last password", required = true, dataType = "password")
     private String password;
+    
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
     
 
 	public Integer getId() {
@@ -51,12 +64,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 
@@ -88,12 +101,31 @@ public class User implements Serializable {
             this.password = password;
         }
 
+        public Date getCreatedAt() {
+            return createdAt;
+        }
+
+        public Date getUpdatedAt() {
+            return updatedAt;
+        }
+
+        public void setCreatedAt(Date createdAt) {
+            this.createdAt = createdAt;
+        }
+
+        public void setUpdatedAt(Date updatedAt) {
+            this.updatedAt = updatedAt;
+        }
+        
+        
+
+        
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", active='" + active + '\'' +
-                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

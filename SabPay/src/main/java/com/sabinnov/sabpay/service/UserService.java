@@ -23,11 +23,11 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email);
+    public int findByTelephone(String telephone){
+        return userRepository.findByTelephone(telephone);
     }
-    public boolean isUserExist(User user) {
-        return findByEmail(user.getEmail())!= null;
+    public int isUserExist(User user) {
+        return findByTelephone(user.getTelephone());
     }
     
     
@@ -35,8 +35,8 @@ public class UserService {
         //return userRepository.isUserVerify(user.getEmail(),user.getPassword())!= null;
          return VerificationLogin(user.getEmail(), user.getPassword());
      }*/
-     public int checkLogin(String email, String password){
-         return userRepository.isUserVerify(email,password);
+     public int checkLogin(String telephone, String password){
+         return userRepository.isUserVerify(telephone,password);
      }
      
      
@@ -48,9 +48,9 @@ public class UserService {
          return Activer(user.getEmail());
     }*/
       
-     public int Activer(String email){
+     public int updateActive(String telephone){
          
-         return userRepository.Connecter(email);
+         return  userRepository.Connecter(telephone);
      }
    
 

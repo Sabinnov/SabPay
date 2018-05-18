@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 07, 2018 at 03:32 PM
+-- Generation Time: May 18, 2018 at 09:10 AM
 -- Server version: 10.1.9-MariaDB-log
 -- PHP Version: 7.0.10
 
@@ -23,39 +23,122 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detail_user`
+--
+
+CREATE TABLE `detail_user` (
+  `id_detail` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `entreprise`
+--
+
+CREATE TABLE `entreprise` (
+  `id_entreprise` int(11) NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `id_detail` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hibernate_sequence`
+--
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(39);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personne`
+--
+
+CREATE TABLE `personne` (
+  `id_personne` int(11) NOT NULL,
+  `date_naissance` varchar(255) NOT NULL,
+  `profession` varchar(255) NOT NULL,
+  `id_detail` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `role`
 --
-DROP TABLE IF EXISTS `role`;
+
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
-  `role` varchar(255) NOT NULL
+  `role` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`role_id`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user`
 --
-DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `active` int(11) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `active` varchar(255) DEFAULT NULL,
+  `telephone` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `user`
+--
 
+INSERT INTO `user` (`user_id`, `active`, `telephone`, `lastname`, `name`, `password`, `created_at`, `updated_at`) VALUES
+(3, '1', 'fohinke232323@gmail.com', 'foinke', 'Mamado', '1111', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'admin', 'someemail@someemailprovider.com', 'foinke', 'Mamado', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(8, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(9, 'admin', 'someemail@someemailprovider.com', 'foinke', 'Mamado', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(10, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(11, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(12, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(13, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(14, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, NULL, 'young@yahoo.fr', 'Bah', 'Karimata bah', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `user_role`
 --
-DROP TABLE IF EXISTS `user_role`;
+
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
@@ -63,8 +146,37 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `role_id`, `user_id`) VALUES
+(1, 1, 3),
+(2, 1, 4);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `detail_user`
+--
+ALTER TABLE `detail_user`
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `entreprise`
+--
+ALTER TABLE `entreprise`
+  ADD PRIMARY KEY (`id_entreprise`),
+  ADD KEY `id_detail` (`id_detail`);
+
+--
+-- Indexes for table `personne`
+--
+ALTER TABLE `personne`
+  ADD PRIMARY KEY (`id_personne`),
+  ADD KEY `id_detail` (`id_detail`);
 
 --
 -- Indexes for table `role`
@@ -91,23 +203,56 @@ ALTER TABLE `user_role`
 --
 
 --
+-- AUTO_INCREMENT for table `detail_user`
+--
+ALTER TABLE `detail_user`
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `entreprise`
+--
+ALTER TABLE `entreprise`
+  MODIFY `id_entreprise` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `personne`
+--
+ALTER TABLE `personne`
+  MODIFY `id_personne` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `detail_user`
+--
+ALTER TABLE `detail_user`
+  ADD CONSTRAINT `detail_user_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `entreprise`
+--
+ALTER TABLE `entreprise`
+  ADD CONSTRAINT `entreprise_ibfk_1` FOREIGN KEY (`id_detail`) REFERENCES `detail_user` (`id_detail`);
+
+--
+-- Constraints for table `personne`
+--
+ALTER TABLE `personne`
+  ADD CONSTRAINT `personne_ibfk_1` FOREIGN KEY (`id_detail`) REFERENCES `detail_user` (`id_detail`);
 
 --
 -- Constraints for table `user_role`

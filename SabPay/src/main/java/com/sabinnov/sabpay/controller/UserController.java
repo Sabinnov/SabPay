@@ -3,6 +3,7 @@ package com.sabinnov.sabpay.controller;
 
 import com.sabinnov.sabpay.models.User;
 import com.sabinnov.sabpay.service.UserService;
+import com.sabinnov.sabpay.exceptions.UserNotFoundException;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 import org.slf4j.Logger;
@@ -36,14 +37,15 @@ public class UserController {
     @RequestMapping(value = "/api/registration/",method = RequestMethod.POST, produces = "application/json")
     @ApiOperation(
             value = "Create user in sab application",
-            notes = "Adds a user, specified name, last name, email, password",
+            notes = "Adds a user, specified name, last name, telephone, password",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     public ResponseEntity< ?> addNewUser(@Valid User user) {
+         HashMap<String, String> map = new HashMap<>();
         LOGGER.info("Creating User : {}", user.toString());
-        if (userService.isUserExist(user)){
-            return new ResponseEntity(new IllegalAccessError("Unable to create. A User with email " +
-                    user.getEmail() + " already exist."),HttpStatus.CONFLICT);
+        if (userService.isUserExist(user) != 0){
+            
+            throw new UserNotFoundException(user.getTelephone());
         }
 
        // user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -53,8 +55,8 @@ public class UserController {
             LOGGER.error("Internal error : " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>("User Added Successfully",HttpStatus.OK);
+           map.put("Response","User Added Successfully");
+        return new ResponseEntity<>(map,HttpStatus.OK);
     }
 
 // *********************Login*************************************
@@ -65,16 +67,16 @@ public class UserController {
             notes = "Login user, specified  email and password",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity< ?> login(@RequestParam(value = "email", required = true) String email, @RequestParam(value = "password", required = true) String password) {
+    public ResponseEntity< ?> login(@RequestParam(value = "telephone", required = true) String telephone, @RequestParam(value = "password", required = true) String password) {
          HashMap<String, String> map = new HashMap<>();
-        if (userService.checkLogin(email,password) == 0){
-            return new ResponseEntity(new IllegalAccessError("Unable to login. A User with email " +
-                    email + " is not exist."),HttpStatus.CONFLICT);
+        if (userService.checkLogin(telephone,password) == 0){
+            
+            throw new UserNotFoundException( telephone,password);
         }else{
         
           // user.getPassword(bCryptPasswordEncoder.decode(user.getPassword()));
         try {
-            userService.Activer(email);
+            userService.updateActive(telephone);
         }catch (Exception e ){
             LOGGER.error("Internal error : " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
