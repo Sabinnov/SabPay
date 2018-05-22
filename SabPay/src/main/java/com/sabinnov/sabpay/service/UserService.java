@@ -14,9 +14,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User addUser (User user){
-        return userRepository.save(user);
-    }
+    public User addUser (User user){         
+         return userRepository.save(user);
+    }    
+    
 
     public void removeUser( Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("User not existing in DB"));
@@ -28,13 +29,10 @@ public class UserService {
     }
     public int isUserExist(User user) {
         return findByTelephone(user.getTelephone());
-    }
+    }   
+   
     
-    
-    /* public int isUserLogin(User user) {
-        //return userRepository.isUserVerify(user.getEmail(),user.getPassword())!= null;
-         return VerificationLogin(user.getEmail(), user.getPassword());
-     }*/
+ 
      public int checkLogin(String telephone, String password){
          return userRepository.isUserVerify(telephone,password);
      }
@@ -52,6 +50,8 @@ public class UserService {
          
          return  userRepository.Connecter(telephone);
      }
+
+   
    
 
 }

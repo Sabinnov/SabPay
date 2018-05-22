@@ -37,12 +37,12 @@ public class User implements Serializable {
     @ApiModelProperty(notes = "User last password", required = true, dataType = "password")
     private String password;
     
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = true, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
