@@ -6,8 +6,8 @@ import com.sabinnov.sabpay.service.UserService;
 import com.sabinnov.sabpay.exceptions.UserNotFoundException;
 import com.sabinnov.sabpay.models.Role;
 import com.sabinnov.sabpay.models.User_Role;
-import com.sabinnov.sabpay.repository.User_RoleRepository;
-import com.sabinnov.sabpay.service.User_RoleService;
+import com.sabinnov.sabpay.repository.UserRoleRepository;
+import com.sabinnov.sabpay.service.UserRoleService;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 import org.slf4j.Logger;
@@ -31,8 +31,8 @@ public class UserController {
 	public static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService;
-    private  User_RoleService user_roleService;
-    private  User_RoleRepository user_roleRepository;
+    private  UserRoleService userRoleService;
+    private  UserRoleRepository userRoleRepository;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -51,17 +51,16 @@ public class UserController {
          HashMap<String, String> map = new HashMap<>();
          
         LOGGER.info("Creating User : {}", user.toString());
-        /*if (userService.isUserExist(user) != 0){
+        if (userService.isUserExist(user) != 0){
             
             throw new UserNotFoundException(user.getTelephone());
-        }*/
+        }
 
        // user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         try {
-            userService.addUser(user); 
+            userService.addUser(user);          
+           userService.addRoleUser(user);
            
-           //user_roleService.addRoleUser(1, 1);  
-            
             
         }catch (Exception e ){
             LOGGER.error("Internal error : " + e.getMessage(), e);
@@ -98,6 +97,10 @@ public class UserController {
         return new ResponseEntity<>(map,HttpStatus.OK);
         }
     }
+    
+    
+    
+    
 
 
 }

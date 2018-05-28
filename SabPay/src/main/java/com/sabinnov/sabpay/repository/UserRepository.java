@@ -15,10 +15,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select COUNT(u) from User u where u.telephone = :telephone")
     int findByTelephone(@Param("telephone")  String telephone);
     
-    
+  
     //-----------------Affectation d'un role a l'utilisateur-----------------------
      
    
+     @Query("select u.id from User u where u.telephone = :telephone")
+    int findByTelephoneId(@Param("telephone")  String telephone);
     
      //----------------Mise a jour active pour indiquer que l'utilisateur est connecte-----
   
@@ -30,7 +32,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
      //----------------Verifivcation de l'identiter de l'utilisateur-----
      @Query("select COUNT(u) from User u where u.telephone = :telephone and u.password = :password")
     int isUserVerify(@Param("telephone")  String telephone,@Param("password")  String password);
-
-    public User findId(String telephone);
 
 }

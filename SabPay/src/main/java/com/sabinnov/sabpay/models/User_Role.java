@@ -16,27 +16,39 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "user_role")
 public class User_Role implements Serializable {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     @ApiModelProperty(hidden = true, readOnly = true)
     private Integer id;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role_id;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName="user_id",nullable = false, insertable = false, updatable = false)
-     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private User user_id;
+    
+    @Column(name = "role_id")
+    @ApiModelProperty(notes = "role_id", required = true)
+    private int role_id;
+    
+    @Column(name = "user_id")
+    @ApiModelProperty(notes = "user_id", required = true)
+    private int user_id;
+    
+ 
 
-    public User_Role(Role role_id, User user_id) {
+    public User_Role(int role_id, int user_id) {
         this.role_id = role_id;
         this.user_id = user_id;
     }
     
     
+    
+    
+     @Override
+    public String toString() {
+        return "User_Role{" +
+                "id=" + getId() +
+                ", user_id='" + getUser_id() + '\'' +
+                ", role_id='" + getRole_id() + '\'' +               
+                '}';
+    }
 
     /**
      * @return the id
@@ -55,38 +67,31 @@ public class User_Role implements Serializable {
     /**
      * @return the role_id
      */
-    public Role getRole_id() {
+    public int getRole_id() {
         return role_id;
     }
 
     /**
      * @param role_id the role_id to set
      */
-    public void setRole_id(Role role_id) {
+    public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
 
     /**
      * @return the user_id
      */
-    public User getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
     /**
      * @param user_id the user_id to set
      */
-    public void setUser_id(User user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
-    
-     @Override
-    public String toString() {
-        return "User_Role{" +
-                "id=" + id +
-                ", user_id='" + user_id + '\'' +
-                ", role_id='" + role_id + '\'' +               
-                '}';
-    }
+
+ 
     
 }

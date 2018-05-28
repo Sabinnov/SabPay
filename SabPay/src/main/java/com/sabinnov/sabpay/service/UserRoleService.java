@@ -7,9 +7,11 @@ package com.sabinnov.sabpay.service;
 
 
 
+import com.sabinnov.sabpay.models.Role;
 import com.sabinnov.sabpay.models.User_Role;
 import com.sabinnov.sabpay.repository.RoleRepository;
-import com.sabinnov.sabpay.repository.User_RoleRepository;
+import com.sabinnov.sabpay.repository.UserRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,16 +19,7 @@ import org.springframework.stereotype.Service;
  * @author karimata
  */
 @Service
-public class User_RoleService {
-    private User_RoleRepository role_userRepository;
-    private UserService userService;
-    private RoleRepository roleRepository;
-
-    public User_Role addRoleUser(Integer user, Integer role) {        
-          
-         return role_userRepository.mySave(user, role);
-    }
-    
-    
+public class UserRoleService {
+         
    
 }
