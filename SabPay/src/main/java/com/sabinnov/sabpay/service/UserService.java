@@ -66,6 +66,11 @@ public class UserService {
          
          return  userRepository.Connecter(telephone);
      }
+     
+     public int logoutActive(Integer id){
+         
+         return  userRepository.Logout(id);
+     }
 
    
    

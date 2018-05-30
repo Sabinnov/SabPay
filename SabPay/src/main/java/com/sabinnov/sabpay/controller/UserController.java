@@ -4,10 +4,10 @@ package com.sabinnov.sabpay.controller;
 import com.sabinnov.sabpay.models.User;
 import com.sabinnov.sabpay.service.UserService;
 import com.sabinnov.sabpay.exceptions.UserNotFoundException;
-import com.sabinnov.sabpay.models.Role;
-import com.sabinnov.sabpay.models.User_Role;
+import com.sabinnov.sabpay.models.DetailUser;
 import com.sabinnov.sabpay.repository.UserRoleRepository;
 import com.sabinnov.sabpay.service.UserRoleService;
+import com.sabinnov.sabpay.service.detailUserService;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 import org.slf4j.Logger;
@@ -33,10 +33,16 @@ public class UserController {
     private UserService userService;
     private  UserRoleService userRoleService;
     private  UserRoleRepository userRoleRepository;
+    private detailUserService detailUserService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+    
+     @Autowired
+    public void setdetailService(detailUserService detailUserService) {
+        this.detailUserService = detailUserService;
     }
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -96,6 +102,54 @@ public class UserController {
 
         return new ResponseEntity<>(map,HttpStatus.OK);
         }
+    }
+    
+    // *********************logout*************************************
+    
+    @RequestMapping(value = "/api/logout/",method = RequestMethod.POST, produces = "application/json")
+    @ApiOperation(
+            value = "Logout user in sab application",
+            notes = "logout user, specified  id",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity< ?> logout(@RequestParam(value = "id", required = true) Integer id) {
+         HashMap<String, String> map = new HashMap<>();
+               
+         
+        try {
+            userService.logoutActive(id);
+        }catch (Exception e ){
+            LOGGER.error("Internal error : " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("Response", "déconnecté");
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
+        
+    }
+    
+     // *********************Add Detail User*************************************
+    
+    @RequestMapping(value = "/api/detailuser/",method = RequestMethod.POST, produces = "application/json")
+    @ApiOperation(
+            value = "add user detail in sab application",
+            notes = "detail user, specified  User detail and telephone",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity< ?> detailuser(@Valid DetailUser detailUser,@RequestParam(value = "telephone", required = true) String telephone) {
+         HashMap<String, String> map = new HashMap<>();
+               LOGGER.info("Creating User : {}", detailUser.toString());
+         
+        try {
+            detailUserService.addDetailUser(detailUser,telephone);
+        }catch (Exception e ){
+            LOGGER.error("Internal error : " + e.getMessage(), e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        map.put("Response", "save");
+
+        return new ResponseEntity<>(map,HttpStatus.OK);
+        
     }
     
     

@@ -33,4 +33,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
      @Query("select COUNT(u) from User u where u.telephone = :telephone and u.password = :password")
     int isUserVerify(@Param("telephone")  String telephone,@Param("password")  String password);
 
+    //----------------Mise a jour active pour indiquer que l'utilisateur est deconnecter-----
+    @Modifying
+    @Transactional
+    @Query("update User u SET u.active = 0 WHERE u.id =:id")
+     int Logout(@Param("id") int id);
+
 }
