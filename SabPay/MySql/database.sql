@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 18, 2018 at 09:10 AM
+-- Generation Time: May 31, 2018 at 11:24 AM
 -- Server version: 10.1.9-MariaDB-log
 -- PHP Version: 7.0.10
 
@@ -33,6 +33,13 @@ CREATE TABLE `detail_user` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `detail_user`
+--
+
+INSERT INTO `detail_user` (`id_detail`, `type`, `email`, `user_id`) VALUES
+(66, 'personne', 'fohinke2323@gmail.com', 60);
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +68,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(39);
+(67);
 
 -- --------------------------------------------------------
 
@@ -85,8 +92,8 @@ CREATE TABLE `personne` (
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
   `role` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -94,7 +101,24 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`role_id`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 'user_admin', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'user', NULL, NULL),
+(3, 'user_super_admin', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id_transaction` int(11) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `status` enum('abouti','non abouti','en attente') DEFAULT NULL,
+  `operateur` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `numero_telephone_client_facturer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -109,8 +133,8 @@ CREATE TABLE `user` (
   `lastname` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -118,20 +142,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `active`, `telephone`, `lastname`, `name`, `password`, `created_at`, `updated_at`) VALUES
-(3, '1', 'fohinke232323@gmail.com', 'foinke', 'Mamado', '1111', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, '0', 'fohinke232323@gmail.com', 'foinke', 'Mamado', '1111', '2018-05-09 04:11:12', '0000-00-00 00:00:00'),
 (4, 'admin', 'someemail@someemailprovider.com', 'foinke', 'Mamado', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 'admin', 'someemail@someemailprovider.com', 'foinke', 'Mamado', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(10, 'Foinke', 'fohinke2323@gmail.com', 'Foinke', 'mamado', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(11, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(12, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(13, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(14, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(15, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(16, '1', 'fohinke2323@gmail.com', 'Foinke', 'karimata', 'Foinke', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(38, NULL, 'young@yahoo.fr', 'Bah', 'Karimata bah', '123456', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(60, NULL, '624153452', 'gggf', 'gggg', '123', NULL, NULL),
+(62, NULL, '6869647125', 'gggf', 'gggg', '123', NULL, NULL),
+(64, NULL, '68696471252', 'gggf', 'gggg', '123', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,8 +165,9 @@ CREATE TABLE `user_role` (
 --
 
 INSERT INTO `user_role` (`id`, `role_id`, `user_id`) VALUES
-(1, 1, 3),
-(2, 1, 4);
+(61, 1, 1),
+(63, 1, 1),
+(65, 1, 64);
 
 --
 -- Indexes for dumped tables
@@ -185,6 +201,13 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`id_transaction`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -195,8 +218,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `role_id` (`role_id`);
+  ADD KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`),
+  ADD KEY `FK859n2jvi8ivhui0rl0esws6o` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -206,7 +229,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `detail_user`
 --
 ALTER TABLE `detail_user`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `entreprise`
 --
@@ -221,17 +244,22 @@ ALTER TABLE `personne`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- Constraints for dumped tables
 --
@@ -255,11 +283,17 @@ ALTER TABLE `personne`
   ADD CONSTRAINT `personne_ibfk_1` FOREIGN KEY (`id_detail`) REFERENCES `detail_user` (`id_detail`);
 
 --
+-- Constraints for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
 -- Constraints for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
+  ADD CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
