@@ -6,6 +6,8 @@
 package com.sabinnov.sabpay.service;
 
 import com.sabinnov.sabpay.repository.TransactionRepository;
+import java.util.List;
+import javax.transaction.Transaction;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,4 +23,11 @@ public class TransactionService {
      public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
+     
+         
+    public List<Transaction>  historyTransaction(String telephone) {
+        return  transactionRepository.findByTelephone(telephone);
+    }
+    
+    
 }

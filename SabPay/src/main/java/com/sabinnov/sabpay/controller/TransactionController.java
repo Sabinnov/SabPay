@@ -10,6 +10,9 @@ import com.sabinnov.sabpay.exceptions.UserNotFoundException;
 import com.sabinnov.sabpay.service.TransactionService;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
+import java.util.List;
+import javax.transaction.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,26 +29,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sab")
 public class TransactionController {
     
-    private TransactionService transactionService;    
+    private TransactionService transactionService;   
     
+    @Autowired
     public void setTransactionService(TransactionService transactionService){
         this.transactionService = transactionService;
     }
     
     @RequestMapping(value = "/api/transaction/",method = RequestMethod.POST, produces = "application/json")
    @ApiOperation(
-            value = "test transactionController",
-            notes = "empty",
+            value = "History transactionController",
+            notes = "history transaction, specify telephone number",
             produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity< ?> teste() {
-         HashMap<String, String> map = new HashMap<>();
-      
+    public List< Transaction> historyTransaction(@RequestParam(value = "telephone", required = true) String telephone) {
         
-        map.put("Response", "Teste reussi");
-
-        return new ResponseEntity<>(map,HttpStatus.OK);
-        }
+            return transactionService.historyTransaction(telephone);
+      
+    }
     
     
 }

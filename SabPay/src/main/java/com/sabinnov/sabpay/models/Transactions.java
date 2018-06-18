@@ -7,11 +7,16 @@ package com.sabinnov.sabpay.models;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,10 +44,11 @@ public class Transactions implements Serializable {
     @Column(name = "operateur")
     @ApiModelProperty(notes = " Opeateur", required = true)
     private String operateur;
-     
-    @Column(name = "user_id")
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id_fk")	
     @ApiModelProperty(notes = "User id send", required = true)
-    private String user_id;
+    private User user_id_fk;
       
     @Column(name = "numero_telephone_client_facturer")
     @ApiModelProperty(notes = "User telephone received", required = true)
@@ -104,19 +110,7 @@ public class Transactions implements Serializable {
         this.operateur = operateur;
     }
 
-    /**
-     * @return the user_id
-     */
-    public String getUser_id() {
-        return user_id;
-    }
-
-    /**
-     * @param user_id the user_id to set
-     */
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
+  
 
     /**
      * @return the telephone
@@ -131,6 +125,21 @@ public class Transactions implements Serializable {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    
+
+    /**
+     * @return the user_id_fk
+     */
+    public User getUser_id_fk() {
+        return user_id_fk;
+    }
+
+    /**
+     * @param user_id_fk the user_id_fk to set
+     */
+    public void setUser_id_fk(User user_id_fk) {
+        this.user_id_fk = user_id_fk;
+    }
+
+   
     
 }
